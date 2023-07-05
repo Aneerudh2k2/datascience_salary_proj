@@ -7,6 +7,7 @@ Created on Tue Jul  4 12:23:17 2023
 
 import pandas as pd
 import numpy as np
+import datetime
 
 df = pd.read_csv("glassdoor_jobs.csv")
 
@@ -26,6 +27,18 @@ df["min_salary"] = min_hr.apply(lambda x: x.split("-")[0])
 df["max_salary"] = min_hr.apply(lambda x: x.split("-")[1])
 
 # Company text cleaning
-df["Company Text"] = df.apply(lambda x: x["Company Name"] if float(x["Rating"]) < 0 else x["Company Name"][:-3], axis=1)
+df["Company Text"] = df.apply(lambda x: x["Company Name"] if float(
+    x["Rating"]) < 0 else x["Company Name"][:-3], axis=1)
 
+# State Cleaning
+df["Job State"] = df["Location"].apply(lambda x: x[-2:])
+df["Job State"].value_counts()
+# If head office and location are same then 1 else 0
+df["Same state"] = df.apply(
+    lambda x: 1 if x.Location == x.Headquarters else 0, axis=1)
 
+# Age of the Company
+df["age"] = df.Founded.apply(lambda x: x if x < 1 else datetime.datetime.now().year - x)
+
+# Job Description
+df["Job Description"][0]
