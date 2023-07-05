@@ -41,4 +41,26 @@ df["Same state"] = df.apply(
 df["age"] = df.Founded.apply(lambda x: x if x < 1 else datetime.datetime.now().year - x)
 
 # Job Description
-df["Job Description"][0]
+#python
+df['python_yn'] = df['Job Description'].apply(lambda x: 1 if 'python' in x.lower() else 0)
+df.python_yn.value_counts()
+
+# R studio
+df['R_yn'] = df['Job Description'].apply(lambda x: 1 if 'r studio' in x.lower() or 'r-studio' in x.lower() else 0)
+df.R_yn.value_counts()
+
+# Spark
+df['spark_yn'] = df['Job Description'].apply(lambda x: 1 if 'spark' in x.lower() else 0)
+df.spark_yn.value_counts()
+
+# AWS
+df['aws_yn'] = df['Job Description'].apply(lambda x: 1 if 'aws' in x.lower() else 0)
+df.aws_yn.value_counts()
+
+# excel
+df['excel_yn'] = df['Job Description'].apply(lambda x: 1 if 'excel' in x.lower() else 0)
+df.excel_yn.value_counts()
+
+# df.columns
+df_out  = df.drop(["Unnamed: 0"], axis=1)
+df_out.to_csv('salary_cleaned_data.csv', index=False)
