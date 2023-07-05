@@ -9,7 +9,7 @@ import pandas as pd
 import numpy as np
 import datetime
 
-df = pd.read_csv("glassdoor_jobs.csv")
+df = pd.read_csv("../glassdoor_jobs.csv")
 
 # Salary Estimate cleanup
 df["Hourly"] = df["Salary Estimate"].apply(
